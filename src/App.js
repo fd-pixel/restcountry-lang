@@ -6,23 +6,23 @@ import axios from "axios";
 
 function App() {
   const [countryList, setCountryList] = useState([]);
-  const [language, setLanguage] = useState("");
+  const [lang, setLang] = useState("");
 
-  const url = `https://restcountries.eu/rest/v2/lang/${language}`;
-  // const getData = async () => {
-  //   const response = await axios.get(url);
-  //   console.log(response.data);
-  //   setCountryList(response.data);
-  // };
-  const getData = () => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => setCountryList(data));
+  const url = `https://restcountries.com/v3.1/lang/${lang}`;
+  const getData = async () => {
+    const response = await axios.get(url);
+    console.log(response.data);
+    setCountryList(response.data);
   };
+  // const getData = () => {
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((data) => setCountryList(data));
+  // };
   // console.log(response.data)
 
   const handleChange = (e) => {
-    setLanguage(e.target.value);
+    setLang(e.target.value);
   };
 
   useEffect(() => {
@@ -53,14 +53,14 @@ function App() {
         </button>
       </form>
       <div>
-        {countryList.map((country, key) => (
+        {countryList?.map((country, key) => (
           <>
-            <p> {country.name}</p>
+            <p> {country.name.common}</p>
             <p>
               {" "}
               <img
                 style={{ width: "8rem" }}
-                src={country.flag}
+                src={country?.flags.png}
                 alt="flag"
                 srcSet=""
               />
